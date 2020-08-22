@@ -10,6 +10,7 @@ var pool = mysql.createPool({
     port:      cfg.PORT  
 });    
 //导出查询相关  
+//封装mysql
 var query=function(sql){    
   return new Promise((resolve,reject)=>{
     pool.getConnection(function(err,conn){    
@@ -18,7 +19,7 @@ var query=function(sql){
             reject(err,null,null);    
         }else{    
             conn.query(sql,function(qerr,vals,fields){    
-                //释放连接    
+                //释放连接   
                 conn.release();    
                 console.log()
                 //成功事件驱动回调    
