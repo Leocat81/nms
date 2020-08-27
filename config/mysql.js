@@ -11,14 +11,14 @@ var pool = mysql.createPool({
 });    
 //导出查询相关  
 //封装mysql
-var query=function(sql){    
+var query=function(sql,params){    
   return new Promise((resolve,reject)=>{
     pool.getConnection(function(err,conn){    
        if(err){    
            //失败事件驱动回调 
             reject(err,null,null);    
         }else{    
-            conn.query(sql,function(qerr,vals,fields){    
+            conn.query(sql,params,function(qerr,vals,fields){    
                 //释放连接   
                 conn.release();    
                 console.log()

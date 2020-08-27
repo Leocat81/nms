@@ -4,8 +4,8 @@ var query = require("../config/mysql");
 var jwt = require('jsonwebtoken');
 /* GET home page. */
 router.get("/login", function (req, res, next) {
-console.log('进入')
-  query("select * from users where username='si' ")
+debugger
+  query("select * from users where username=?")
     .then((res1) => {
    let token=   jwt.sign({
         id:res1[0].id,
