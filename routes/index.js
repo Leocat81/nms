@@ -7,6 +7,7 @@ router.get("/login", function (req, res, next) {
 console.log('进入')
   query("select * from users where username='si' ")
     .then((res1) => {
+      debugger
    let token=   jwt.sign({
         id:res1[0].id,
         username:res1[0].username
@@ -16,7 +17,8 @@ console.log('进入')
           res.json({token:token})
     })
     .catch((err) => {
-      debugger;
+      console.log(err)
+      res.json(err)
     });
 });
 
