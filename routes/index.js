@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 /* GET home page. */
 router.get("/login", function (req, res, next) {
 debugger
-  query("select * from users where username=?")
+  query("select * from users where username=?",['si'])
     .then((res1) => {
    let token=   jwt.sign({
         id:res1[0].id,
@@ -13,10 +13,11 @@ debugger
           }, 'hahaha', {
             expiresIn: '1d' 
           })
-          res.json({token:token})
+          res.json({token:token,...res1[0]})
     })
     .catch((err) => {
-      debugger;
+      debugger
+      res.json(err)
     });
 });
 

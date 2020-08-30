@@ -10,8 +10,11 @@ router.get("/", function (req, res, next) {
     res.json(value)
   });
 });
-router.get("/insertUser", async (req, res, next)=> {
-  let s=await query("select * from users where username=?")
-debugger
+router.get("/addUser", async (req, res, next)=> {
+  const username ='xiaomi'
+  const password ='1234'
+  let s=await query("insert into users (username,password) values (?,?)",[username,password])
+  debugger
+res.json('cheng')
 });
 module.exports = router;
