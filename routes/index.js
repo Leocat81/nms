@@ -1,9 +1,10 @@
-var express = require("express");
-var router = express.Router();
-var query = require("../config/mysql");
-var jwt = require("jsonwebtoken");
+let express = require("express");
+let router = express.Router();
+let query = require("../config/mysql");
+let jwt = require("jsonwebtoken");
+let dayjs = require("dayjs");
 const { body, validationResult } = require("express-validator");
-var createError = require("http-errors");
+let createError = require("http-errors");
 /* GET home page. */
 router.get(
   "/login",
@@ -16,10 +17,10 @@ router.get(
     }
     try {
       const user = req.body;
-      let res1 = await query(
-        "select * from users where username=? and password=?",
-        [user.username, user.password]
-      );
+      let res1 = await query("select * from dj_user where user_name=?", [
+        user.username,
+      ]);
+      res1[0].update_time = dayjs(res1[0].update_time).format("YYYY/MM/DD");
       let token = jwt.sign(
         {
           id: res1[0].id,
@@ -30,7 +31,7 @@ router.get(
           expiresIn: "1d",
         }
       );
-      res.json({ token: token, ...res1[0] });
+      res.json({ token: token, data:{...res1[0]} });
     } catch (error) {
       res.send(error);
     }
