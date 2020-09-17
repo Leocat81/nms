@@ -1,7 +1,7 @@
 module.exports = {
         'HOST': 'localhost',
         'USER': 'root',
-        'PASS': '123456',
+        'PASS': 'sjf0801',
         'PORT': '3306',
         'DATABASE': 'dj'
 };
