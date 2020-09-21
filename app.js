@@ -9,6 +9,26 @@ var uploadRouter = require("./routes/upload");
 const fileUpload = require("express-fileupload");
 var jwt = require("jsonwebtoken");
 var app = express();
+var allowCors = function (req, res, next) {
+  debugger;
+  //设置允许跨域的域名，*代表允许任意域名跨域
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  // //允许的header类型
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authentication,authentication, X-Requested-With"
+  );
+  // //跨域允许的请求方式
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  // 可以带cookies
+  res.header("Access-Control-Allow-Credentials", true);
+  if (req.method == "OPTIONS") {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+};
+app.use(allowCors); //使用跨域中间件
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -23,7 +43,7 @@ app.use(function (req, res, next) {
   debugger;
   if (req.path.indexOf("/login") == -1 && req.path.indexOf("/upload") == -1) {
     debugger;
-    jwt.verify(req.headers["authorization"], "hahaha", (err, value) => {
+    jwt.verify(req.headers["Authorization"], "hahaha", (err, value) => {
       if (err) {
         next(createError(403, err));
       }
