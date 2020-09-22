@@ -6,10 +6,11 @@ let dayjs = require("dayjs");
 const { body, validationResult } = require("express-validator");
 let createError = require("http-errors");
 /* GET home page. */
-router.get(
+router.post(
   "/login",
   [body("username").exists().withMessage("不存在")],
   async (req, res, next) => {
+    debugger;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       let test = createError(400, errors);
@@ -31,7 +32,8 @@ router.get(
           expiresIn: "1d",
         }
       );
-      res.json({ token: token, data:{...res1[0]} });
+      debugger;
+      res.json({ token: token, data: { ...res1[0] } });
     } catch (error) {
       res.send(error);
     }

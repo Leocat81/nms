@@ -16,9 +16,9 @@ var query = async (sql, params) => {
     // await 对于resole方法，必须加return才能被捕获到。
     return await new Promise((resolve, reject) => {
       pool.getConnection((err, conn) => {
-        if(err){
+        if (err) {
           console.log(err);
-          return
+          return;
         }
         conn.query(sql, params, function (qerr, vals, fields) {
           //释放连接
