@@ -10,7 +10,6 @@ router.post(
   "/login",
   [body("username").exists().withMessage("不存在")],
   async (req, res, next) => {
-    debugger;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       let test = createError(400, errors);
@@ -32,7 +31,6 @@ router.post(
           expiresIn: "1d",
         }
       );
-      debugger;
       res.json({ token: token, data: { ...res1[0] } });
     } catch (error) {
       res.send(error);

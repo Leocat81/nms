@@ -10,7 +10,6 @@ const fileUpload = require("express-fileupload");
 var jwt = require("jsonwebtoken");
 var app = express();
 var allowCors = function (req, res, next) {
-  debugger;
   //设置允许跨域的域名，*代表允许任意域名跨域
   res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
   // //允许的header类型
@@ -40,9 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
 app.use(function (req, res, next) {
-  debugger;
   if (req.path.indexOf("/login") == -1 && req.path.indexOf("/upload") == -1) {
-    debugger;
     jwt.verify(req.headers["Authorization"], "hahaha", (err, value) => {
       if (err) {
         next(createError(403, err));
@@ -56,7 +53,6 @@ app.use("/users", usersRouter);
 app.use("/upload", uploadRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  debugger;
   next(createError(404));
 });
 // error handler

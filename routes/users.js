@@ -17,7 +17,6 @@ router.get("/addUser", async (req, res, next) => {
     username,
     password,
   ]);
-  debugger;
   res.json("cheng");
 });
 module.exports = router;
