@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
 app.use(function (req, res, next) {
   if (req.path.indexOf("/login") == -1 && req.path.indexOf("/upload") == -1) {
-    jwt.verify(req.headers["Authorization"], "hahaha", (err, value) => {
+    jwt.verify(req.headers["authentication"], "hahaha", (err, value) => {
       if (err) {
         next(createError(403, err));
       }
