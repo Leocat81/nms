@@ -8,14 +8,11 @@ router.post("/", async (req, res, next) => {
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.sampleFile;
-  debugger;
   // Use the mv() method to place the file somewhere on your server
-  try {
-    await sampleFile.mv("C:\\Users\\86152\\Desktop\\test.jpg");
-    res.send("上传成功");
-  } catch (error) {
-    console.log(error);
-    return res.status('500').send(error);
-  }
+    let res1=await sampleFile.mv("C:\\Users\\86152\\Desktop").catch((err)=>{
+    return res.json(err);
+    });
+    console.log('sdsdsd');
+    res.send('chengg');
 });
 module.exports = router;
